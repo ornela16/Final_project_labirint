@@ -13,5 +13,3 @@
 - [Подсказка по markdown](https://www.markdownguide.org/basic-syntax/)
 
 [Лабиринт](https://www.labirint.ru)
-
-
