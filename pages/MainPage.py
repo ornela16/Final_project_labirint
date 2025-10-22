@@ -1,8 +1,10 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.ie.webdriver import WebDriver
+
 
 class MainPage:
 
-    def __init__(self, driver):
+    def __init__(self, driver: WebDriver):
         self.driver = driver
         self.driver.get("https://www.labirint.ru/")
         self.driver.implicitly_wait(4)
