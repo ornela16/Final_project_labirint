@@ -13,9 +13,7 @@ class MainPage:
     def set_cookie_policy(self):
         cookie = {"name": "cookie_policy", "value": "1"}
         self.driver.add_cookie(cookie)
-        # self.driver.find_element(By.CSS_SELECTOR, "button.cookie-policy__button.js-cookie-policy-agree").click()
 
     def search(self, title):
         self.driver.find_element(By.CSS_SELECTOR, "#search-field").send_keys(title)
         self.driver.find_element(By.CSS_SELECTOR, "button[type=submit]").click()
-

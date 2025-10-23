@@ -22,12 +22,9 @@ class ResultPage:
         return f"{first_part}?"
 
     def add_books_hold_over(self):
-        hold_buttons = self.driver.find_elements(By.CSS_SELECTOR, "a.icon-fave.track-tooltip.js-open-deferred-block")
-        # counter = 0
-        # for icon_fave in hold_buttons:
-        #     icon_fave.click()
-        #     counter += 1
-        # return counter
-
-
-
+        hold_buttons = self.driver.find_elements(By.CSS_SELECTOR, "a.icon-fave.active.track-tooltip.js-open-deferred-block")
+        counter = 0
+        for icon_fave in hold_buttons:
+            icon_fave.click()
+            counter += 1
+        return counter
