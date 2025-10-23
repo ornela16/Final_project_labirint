@@ -19,6 +19,8 @@ class SalePage:
     def search_sale(self, title):
         self.driver.find_element(By.CSS_SELECTOR, "input.text.navisort-find-text").send_keys(title)  # в поле поиска ввести слова для поиска книги
         self.driver.find_element(By.CSS_SELECTOR, "input.btn.btn-small.btn-more.navisort-find-btn.only_desc").click()
+
+    def window_code(self):
         self.wait.until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, "a.icon-fave.track-tooltip.js-open-deferred-block")))
         sleep(10)
