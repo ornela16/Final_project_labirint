@@ -118,6 +118,8 @@ def test_get_best(driver):
     main_page.set_cookie_policy()
     header_page = HeaderPage(driver)
     txt = header_page.head_books()
+
+    assert header_page.get_current_url().endswith("...")
     assert txt == "Главные книги 2025"
 
 

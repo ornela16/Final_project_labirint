@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -14,7 +15,11 @@ class HeaderPage:
         )
         self.driver.execute_script("arguments[0].click();", element)         # Далее ожидаем, что появится нужный блок контента
         self.wait.until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, "div.content-block"))
-        )
-        txt = self.driver.find_element(By.CSS_SELECTOR, "div.content-block").text
+            EC.visibility_of_element_located((By.CSS_SELECTOR, "div.content-block")))
+
+    @allure.step("Получить текущий URL")
+    def get_current_url(self):
+        return self.driver.current_url
+
+        #txt = self.driver.find_element(By.CSS_SELECTOR, "div.content-block").text
         print(txt)

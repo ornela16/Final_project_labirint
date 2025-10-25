@@ -8,11 +8,19 @@
    pytest_ui_api_template.git'
 2. Установить зависимости
 3. Запустить тесты 'pytest'
+4. Сгенерировать отчет 'allure generate allure-files -o allure-report'
+5. Открыть отчет 'allure open allure-report'
 
 ### Стек:
 - pytest
 - selenium
 - requests
+
+### Структура:
+- ./test - тесты
+- ./pages - описание страниц
+- ./api - хелперы для работы с API
+-  test_config.ini - настройки для тестов
 
 
 ### Полезные ссылки
@@ -23,6 +31,7 @@
 - pyp install pytest
 - pip install selenium
 - pip install webdriver-manager
+- pip install allure-pytest
 
 
 [Лабиринт](https://www.labirint.ru)
