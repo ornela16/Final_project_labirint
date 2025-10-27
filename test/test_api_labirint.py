@@ -29,8 +29,8 @@ def test_get_best(driver):
     assert resp.status_code == 200
 
 
-@allure.title("Тестирование загрузки сайта интернет-магазина Лабиринт.")
-@allure.description("Тест проверяет загрузку начальной страницы.")
+@allure.title("Тестирование загрузкистраницы Корзина интернет-магазина Лабиринт.")
+@allure.description("Тест проверяет загрузку страницы Корзина")
 @allure.feature("Интернет-магазин Лабиринт.")
 @allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.smoke

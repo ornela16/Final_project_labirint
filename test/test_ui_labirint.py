@@ -53,7 +53,7 @@ def test_window_my_lab(driver):
     my_page.window_my_lab()
 
 
-@allure.title("Тестирование входа авторизованного пользователя в личный кабинет.")
+@allure.title("Тестирование поиска книг на начальной странице сайта по ключевому слову и добавление в корзину.")
 @allure.description("Тест проверяет возможность просмотра личных данных пользователя.")
 @allure.feature("Интернет-магазин Лабиринт.")
 @allure.severity(allure.severity_level.CRITICAL)
@@ -72,8 +72,8 @@ def test_cart_counter(driver):
 
     assert actual_count == expected_count
 
-@allure.title("Тестирование входа авторизованного пользователя в личный кабинет.")
-@allure.description("Тест проверяет возможность просмотра личных данных пользователя.")
+@allure.title("Тестирование поиска книг с пустым полем поиска на начальной странице.")
+@allure.description("Тест проверяет возможность поиска книг с пустым полем поиска.")
 @allure.feature("Интернет-магазин Лабиринт.")
 @allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.negative
@@ -88,8 +88,8 @@ def test_empty_search(driver):
 
     assert message == "Пока не нашли для себя ничего в Лабиринте?"
 
-@allure.title("Тестирование входа авторизованного пользователя в личный кабинет.")
-@allure.description("Тест проверяет возможность просмотра личных данных пользователя.")
+@allure.title("Тестирование возможности добавления книг в Отложенные, проверка количества отложенных книг.")
+@allure.description("Тест проверяет добавление пользователем книг в Отложенные.")
 @allure.feature("Интернет-магазин Лабиринт.")
 @allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.positive
@@ -111,6 +111,10 @@ def test_hold_over(driver):
 
     assert actual_count == expected_count
 
+@allure.title("Тестирование загрузки страницы 'Главные книги 2025'.")
+@allure.description("Тест проверяет загрузку страницы при клике по кнопке 'Главное 2025' в хедере.")
+@allure.feature("Интернет-магазин Лабиринт.")
+@allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.positive
 def test_get_best(driver):
     """Тест проверяет корректный переход по ссылке при клике по кнопке 'Главное 2025' """
@@ -124,5 +128,4 @@ def test_get_best(driver):
 
 
 # Вход на сайт Лабиринт.ру с некорректным кодом
-#
 # Добавление товара в корзину негативный сценарий
