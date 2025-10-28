@@ -1,41 +1,75 @@
-import pytest
-import allure
 import requests
-from pages.LabirintAPI import LabirintAPI
+import allure
+import pytest
+from config import cookies, headers
 
-BASE_URL = LabirintAPI("https://www.labirint.ru")
+BASE_URL = "https://www.labirint.ru"
 
-
-@allure.title("Тестирование загрузки сайта интернет-магазина Лабиринт.")
-@allure.description("Тест проверяет загрузку начальной страницы.")
-@allure.feature("Интернет-магазин Лабиринт.")
-@allure.severity(allure.severity_level.CRITICAL)
-@pytest.mark.smoke
+@allure.title("Тест для просмотра содержимого корзины интернет-магазина Лабиринт.")
 @pytest.mark.positive
-def test_get_labirint(driver):
-    resp = BASE_URL.get_open()
-    #Проверяем статус-код в ответе:
-    assert resp.status_code == 200
+@pytest.mark.api
+def test_basket_contents():
+    payload = {}
+    response = requests.request("GET", BASE_URL + '/ajax/basket/', cookies=cookies,headers=headers, data=payload)
+    print(response.text)
+    assert response.status_code == 200
 
-@allure.title("Тестирование загрузки страницы Главные книги 2025 интернет-магазина Лабиринт.")
-@allure.description("Тест проверяет загрузку страницы Главные книги 2025.")
-@allure.feature("Интернет-магазин Лабиринт.")
-@allure.severity(allure.severity_level.CRITICAL)
-@pytest.mark.smoke
+
+@allure.title("Тест для добавления книги в корзину интернет-магазина Лабиринт.")
 @pytest.mark.positive
-def test_get_best(driver):
-    resp = requests.get('https://www.labirint.ru')
-    #Проверяем статус-код в ответе:
-    assert resp.status_code == 200
+@pytest.mark.api
+def test_add_book_to_basket():
+    book_id = "796310"
+    payload = f"id={book_id}&s=1&charity=0"
+    response = requests.request("POST", BASE_URL + '/buy.php?JsHttpRequest=0-xml', cookies=cookies, headers=headers, data=payload)
+    print(response.text)
+    assert response.status_code == 200
 
 
-@allure.title("Тестирование загрузкистраницы Корзина интернет-магазина Лабиринт.")
-@allure.description("Тест проверяет загрузку страницы Корзина")
-@allure.feature("Интернет-магазин Лабиринт.")
-@allure.severity(allure.severity_level.CRITICAL)
-@pytest.mark.smoke
+@allure.title("Тест для удаления книги из корзины на сайте Лабиринт.")
 @pytest.mark.positive
-def test_get_cart(driver):
-    resp = requests.get('https://www.labirint.ru')
-    #Проверяем статус-код в ответе:
-    assert resp.status_code == 200
+@pytest.mark.api
+def test_remove_book_from_cart():
+    """Тест удаления книги из корзины"""
+    book_id = 90376
+    payload = {"del_goods": str(book_id)}  # параметр удаления
+    response = requests.request("POST", BASE_URL + '/ajax/basket/', cookies=cookies, headers=headers, data=payload)
+    assert response.status_code == 200, f"Ошибка при удалении: {response.text}"
+
+
+@allure.title("Тест для получения страницы книги по id на сайте Лабиринт.")
+@pytest.mark.positive
+@pytest.mark.api
+def test_get_book_by_id():
+    payload = {}
+    response = requests.request("POST", BASE_URL + "/books/763115/", headers=headers, data=payload)
+    assert response.status_code == 200
+
+
+@allure.feature("Поиск книг")
+@allure.story("Поиск книг по названию, автору или ключевому слову")
+@pytest.mark.api
+def test_search_books():
+    """Проверка поиска по ключевому слову"""
+    payload = {"searchKeyword": "Гиляровский"}
+    response = requests.request("POST", BASE_URL + "/search/searchKeyword/?stype=0", headers=headers, data=payload)
+    assert response.status_code == 200
+
+
+@allure.feature("Поиск книг")
+@allure.story("Пустой запрос")
+@pytest.mark.api
+def test_search_empty_query():
+    payload = {"searchKeyword": ""}
+    response = requests.request("POST", BASE_URL + "/search/searchKeyword/?stype=0", headers=headers, data=payload)
+    assert response.status_code == 200
+
+
+@allure.feature("Авторизация")
+@allure.story("Невалидные данные")
+@pytest.mark.api
+def test_login_invalid_credentials():
+    """Авторизация с неверными данными"""
+    payload = {"email": "fake@example.com", "pwd": "wrongpassword"}
+    response = requests.request("POST", BASE_URL + "/cabinet/login/", headers=headers, data=payload)
+    assert response.status_code == 401
