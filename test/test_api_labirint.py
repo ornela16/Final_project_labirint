@@ -46,8 +46,8 @@ def test_get_book_by_id():
     assert response.status_code == 200
 
 
+@allure.title("Тест для поиска книг по названию, автору или ключевому слову")
 @allure.feature("Поиск книг")
-@allure.story("Поиск книг по названию, автору или ключевому слову")
 @pytest.mark.api
 def test_search_books():
     """Проверка поиска по ключевому слову"""
@@ -56,17 +56,18 @@ def test_search_books():
     assert response.status_code == 200
 
 
+@allure.title("Негативный тест для поиска книг с пустым полем запроса.")
 @allure.feature("Поиск книг")
-@allure.story("Пустой запрос")
+@pytest.mark.negative
 @pytest.mark.api
 def test_search_empty_query():
     payload = {"searchKeyword": ""}
     response = requests.request("POST", BASE_URL + "/search/searchKeyword/?stype=0", headers=headers, data=payload)
     assert response.status_code == 200
 
-
+@allure.title("Негативный тест для авторизации с Невалидными данными")
 @allure.feature("Авторизация")
-@allure.story("Невалидные данные")
+@pytest.mark.negative
 @pytest.mark.api
 def test_login_invalid_credentials():
     """Авторизация с неверными данными"""

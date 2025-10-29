@@ -1,5 +1,4 @@
 import requests
-import pytest
 from config import BASE_URL, headers
 
 
@@ -34,7 +33,5 @@ class LabirintAPI:
 
     def add_book_to_cart(self, book_id: str):
         """Тест добавления книги в корзину"""
-
-
-
-
+        resp = requests.get(self.url + '/buy.php?JsHttpRequest=0-xml')
+        return resp.json()

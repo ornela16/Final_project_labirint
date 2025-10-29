@@ -10,5 +10,5 @@ class CartPage:
 
     def get_counter(self):
         txt = self.driver.find_element(By.ID, 'basket-default-prod-count2').text
-        number_str = txt.split()[0]  # Забираем только число из строки "32 товара"
+        number_str = txt.split()[0]                 # Забираем только число из строки "хх товара"
         return int(number_str)
